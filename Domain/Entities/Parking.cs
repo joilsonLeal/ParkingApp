@@ -14,5 +14,6 @@ namespace Domain.Entities
         public DateTime Date { get; set; }
         public List<string> Pictures { get; set; }
         public string Description { get; set; }
+        public List<Spot> Spots { get; set; }
     }
 }
