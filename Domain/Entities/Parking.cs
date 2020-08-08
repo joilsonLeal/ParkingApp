@@ -5,9 +5,8 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class Parking
+    public class Parking : BaseEntity
     {
-        public int ParkingId { get; set; }
         public int CountryId { get; set; }
         public virtual Country Country { get; set; }
         public int UserId { get; set; }

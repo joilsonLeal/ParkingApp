@@ -4,5 +4,8 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class Country : BaseEntityName { }
+    public class BaseEntity
+    {
+        public int Id { get; set; }
+    }
 }
