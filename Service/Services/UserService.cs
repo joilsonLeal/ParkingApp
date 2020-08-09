@@ -16,6 +16,11 @@ namespace Service.Services
             _repository = repository;
         }
 
+        public User Login(string username, string password)
+        {
+            return _repository.Login(username, password);
+        }
+
         public void Delete(int id)
         {
             _repository.Delete(id);

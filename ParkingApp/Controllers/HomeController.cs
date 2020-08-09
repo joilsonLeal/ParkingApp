@@ -20,25 +20,36 @@ namespace ParkingApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IParkingService _service;
-        public HomeController(IParkingService service)
+        private readonly IUserService _service;
+        public HomeController(IUserService service)
         {
             _service = service;
         }
 
         public IActionResult Index()
         {
-            try
-            {
-                var a = _service.Get(1);
-                var b = _service.GetAll();
-            }
-            catch (Exception e)
-            {
-
-            }
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Login(User model)
+        {
+            var user = _service.Login(model.Name, model.Password);
+            if (user != null)
+            {
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid user/pass");
+                return View();
+            }
+        }
     }
 }

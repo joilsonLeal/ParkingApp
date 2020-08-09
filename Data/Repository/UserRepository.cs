@@ -52,5 +52,13 @@ namespace Data.Repository
             entity.IsActive = status;
             base.Update(entity);
         }
+
+        public User Login(string username, string password)
+        {
+            return _context.Users
+                    .Include(p => p.Profile)
+                    .Where(x => x.Name == username && x.Password == password)
+                    .FirstOrDefault();
+        }
     }
 }
