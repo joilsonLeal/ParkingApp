@@ -21,7 +21,7 @@ namespace Data.Context.Mapping
             builder.Property(t => t.IsActive)
                 .IsRequired();
 
-            builder.HasOne(p => p.Profile).WithOne(c => c.User);
+            builder.HasOne(t => t.Profile);
 
             builder.ToTable("User");
         }

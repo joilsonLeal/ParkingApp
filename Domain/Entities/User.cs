@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain
 {
@@ -7,8 +8,7 @@ namespace Domain
     {
         public string Password { get; set; }
         public bool IsActive { get; set; } = true;
-        public int ProfileId { get; set; }
-        public virtual Profile Profile { get; set; }
+        public Domain.Entities.Profile Profile { get; set; }
 
     }
 }
