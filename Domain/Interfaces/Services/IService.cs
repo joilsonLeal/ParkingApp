@@ -5,9 +5,9 @@ namespace Domain.Interfaces.Services
 {
     public interface IService<T> where T : BaseEntity
     {
-        T Post(T obj);
+        void Post(T obj);
 
-        T Put(T obj);
+        void Put(T obj);
 
         void Delete(int id);
 

@@ -16,14 +16,19 @@ namespace Data.Repository
 
         }
 
+        public void Active(int id)
+        {
+            ActiveDesactive(id, true);
+        }
+
         void IRepository<User>.Delete(int id)
         {
-            throw new NotImplementedException();
+            ActiveDesactive(id, false);
         }
 
         void IRepository<User>.Insert(User entity)
         {
-            throw new NotImplementedException();
+            base.Insert(entity);
         }
 
         User IRepository<User>.Select(int id)
@@ -33,20 +38,19 @@ namespace Data.Repository
 
         List<User> IRepository<User>.SelectAll()
         {
-            try
-            {
-                var a = _context.Users.Include(p => p.Profile).Where(x => x.IsActive == false).ToList();
-                return a;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            return _context.Users.Include(p => p.Profile).Where(x => x.IsActive == true).ToList();
         }
 
         void IRepository<User>.Update(User entity)
         {
-            throw new NotImplementedException();
+            base.Update(entity);
+        }
+
+        private void ActiveDesactive(int id, bool status)
+        {
+            var entity = base.Select(id);
+            entity.IsActive = status;
+            base.Update(entity);
         }
     }
 }

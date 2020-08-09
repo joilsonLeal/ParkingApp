@@ -6,5 +6,6 @@ namespace Domain.Interfaces.Services
 {
     public interface IUserService : IService<User>
     {
+        public void Active(int id);
     }
 }

@@ -18,7 +18,7 @@ namespace Service.Services
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _repository.Delete(id);
         }
 
         public User Get(int id)
@@ -31,14 +31,20 @@ namespace Service.Services
             return _repository.SelectAll();
         }
 
-        public User Post(User obj)
+        public void Post(User entity)
         {
-            throw new NotImplementedException();
+            _repository.Insert(entity);
         }
 
-        public User Put(User obj)
+        public void Put(User entity)
         {
-            throw new NotImplementedException();
+            _repository.Update(entity);
         }
+
+        public void Active(int id)
+        {
+            _repository.Active(id);
+        }
+
     }
 }

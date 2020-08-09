@@ -30,13 +30,10 @@ namespace ParkingApp.Controllers
         {
             try
             {
-                var a = _service.GetAll();
-                var b = _service.Get(1);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
-                throw;
             }
             return View();
         }
