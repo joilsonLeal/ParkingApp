@@ -6,6 +6,5 @@ namespace Domain.Interfaces.Repository
 {
     public interface IUserRepository : IRepository<User>
     {
-        public List<User> GetAll1();
     }
 }

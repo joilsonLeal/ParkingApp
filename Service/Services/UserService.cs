@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Service.Services
 {
-    public class  UserService : BaseService<User>, IUserService
+    public class  UserService : IUserService
     {
         private readonly IUserRepository _repository;
         public UserService(IUserRepository repository)
@@ -16,9 +16,29 @@ namespace Service.Services
             _repository = repository;
         }
 
-        public List<User> GetAll1()
+        public void Delete(int id)
         {
-            return _repository.GetAll1();
+            throw new NotImplementedException();
+        }
+
+        public User Get(int id)
+        {
+            return _repository.Select(id);
+        }
+
+        public IList<User> GetAll()
+        {
+            return _repository.SelectAll();
+        }
+
+        public User Post(User obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User Put(User obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

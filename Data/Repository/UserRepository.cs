@@ -16,7 +16,22 @@ namespace Data.Repository
 
         }
 
-        public List<User> GetAll1()
+        void IRepository<User>.Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IRepository<User>.Insert(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        User IRepository<User>.Select(int id)
+        {
+            return base.Select(id);
+        }
+
+        List<User> IRepository<User>.SelectAll()
         {
             try
             {
@@ -29,5 +44,9 @@ namespace Data.Repository
             }
         }
 
+        void IRepository<User>.Update(User entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

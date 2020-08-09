@@ -6,6 +6,5 @@ namespace Domain.Interfaces.Services
 {
     public interface IUserService : IService<User>
     {
-        public List<User> GetAll1();
     }
 }
