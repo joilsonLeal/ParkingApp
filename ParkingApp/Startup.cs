@@ -38,7 +38,7 @@ namespace ParkingApp
                 .AddCookie("CookieAuth", config => 
                 {
                     config.Cookie.Name = "Cookie";
-                    config.LoginPath = "/Account/Login";
+                    config.LoginPath = "/Home";
                 });
 
             services.AddControllersWithViews();
