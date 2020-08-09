@@ -34,8 +34,10 @@ namespace ParkingApp
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICountryService, CountryService>();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
