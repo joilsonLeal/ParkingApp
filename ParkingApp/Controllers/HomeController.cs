@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dapper;
 using Data.Context;
 using Data.Repository;
@@ -22,9 +23,11 @@ namespace ParkingApp.Controllers
     public class HomeController : Controller
     {
         private readonly IParkingService _service;
-        public HomeController(IParkingService service)
+        private readonly IMapper _mapper;
+        public HomeController(IParkingService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         public IActionResult Index()

@@ -16,7 +16,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Service.Services;
-
+using AutoMapper;
+using ParkingApp.Models;
+using Domain;
+using Domain.Entities;
 
 namespace ParkingApp
 {
@@ -55,8 +58,19 @@ namespace ParkingApp
             services.AddScoped<ISpotService, SpotService>();
             services.AddScoped<IParkingService, ParkingService>();
 
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<User, UserModel>().ReverseMap();
+                cfg.CreateMap<Domain.Entities.Profile, ProfileModel>().ReverseMap();
+                cfg.CreateMap<Country, CountryModel>().ReverseMap();
+                cfg.CreateMap<Spot, SpotModel>().ReverseMap();
+                cfg.CreateMap<Parking, ParkingModel>().ReverseMap();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
         }
-        
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
