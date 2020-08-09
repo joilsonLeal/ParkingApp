@@ -1,8 +1,10 @@
 ﻿using Data.Context;
 using Domain.Entities;
 using Domain.Interfaces.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Data.Repository
@@ -26,7 +28,11 @@ namespace Data.Repository
 
         Parking IRepository<Parking>.Select(int id)
         {
-            return base.Select(id);
+            return _context.Parkings
+                        .Include(c => c.Country)
+                        .Include(s => s.Spots)
+                        .Include(u => u.User)
+                        .SingleOrDefault(x => x.Id == id);
         }
 
         List<Parking> IRepository<Parking>.SelectAll()

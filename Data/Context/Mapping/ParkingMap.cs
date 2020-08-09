@@ -22,7 +22,7 @@ namespace Data.Context.Mapping
 
             builder.HasOne(t => t.User);
 
-            builder.HasMany(t => t.Spots).WithOne(p => p.Parking);
+            builder.HasMany(t => t.Spots);
 
             builder.ToTable("Parking");
         }

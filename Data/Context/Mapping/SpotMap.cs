@@ -17,7 +17,8 @@ namespace Data.Context.Mapping
             builder.Property(t => t.IsRented)
                 .IsRequired();
 
-            builder.HasOne(t => t.Parking);
+            builder.Property(t => t.Price)
+                .IsRequired();
 
             builder.ToTable("Spot");
         }
