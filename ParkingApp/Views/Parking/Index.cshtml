@@ -1,11 +1,5 @@
 ﻿@model IEnumerable<Domain.Entities.Parking>
 
-@{
-    ViewData["Title"] = "Index1";
-}
-
-<h1>Index1</h1>
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -13,10 +7,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Country)
+                @Html.DisplayNameFor(model => model.CountryId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.UserId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RegisteredDate)
@@ -24,11 +18,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model) {
+@foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CountryId)
@@ -43,7 +40,12 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", "Parking", new { id=item.Id })
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }

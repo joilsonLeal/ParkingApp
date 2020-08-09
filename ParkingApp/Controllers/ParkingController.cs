@@ -1,28 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapper;
-using Data.Context;
-using Data.Repository;
-using Domain;
-using Domain.Entities;
 using Domain.Interfaces.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using ParkingApp.Models;
-using Service.Services;
 
 namespace ParkingApp.Controllers
 {
-    public class HomeController : Controller
+    public class ParkingController : Controller
     {
         private readonly IParkingService _service;
-        public HomeController(IParkingService service)
+
+        public ParkingController(IParkingService service)
         {
             _service = service;
         }
@@ -32,6 +21,18 @@ namespace ParkingApp.Controllers
             return View(_service.GetAll());
         }
 
-       
+        public IActionResult Details(int id)
+        {
+            return View(_service.Get(id));
+        }
+
+        public IActionResult Edit(int id = 0)
+        {
+            if(id > 0)
+            {
+                return View(_service.Get(id));
+            }
+            return View();
+        }
     }
 }
