@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dapper;
 using Data.Context;
 using Data.Repository;
 using Domain;
 using Domain.Entities;
 using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -21,24 +23,23 @@ namespace ParkingApp.Controllers
     public class HomeController : Controller
     {
         private readonly IParkingService _service;
-        public HomeController(IParkingService service)
+        private readonly IMapper _mapper;
+        public HomeController(IParkingService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            try
-            {
-                var a = _service.Get(1);
-                var b = _service.GetAll();
-            }
-            catch (Exception e)
-            {
+            var result = _mapper
+                .Map<List<ParkingModel>>(
+                    _service.GetAll()
+                 );
 
-            }
-            return View();
+            return View(result);
         }
 
+       
     }
 }

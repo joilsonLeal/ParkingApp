@@ -1,6 +1,7 @@
 ﻿using Data.Context.Mapping;
 using Domain;
 using Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
