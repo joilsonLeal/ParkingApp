@@ -8,6 +8,7 @@ namespace ParkingApp.Models
     public class UserModel : BaseNameModel
     {
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
         public bool IsActive { get; set; }
         public int ProfileId { get; set; }
         public ProfileModel Profile { get; set; }

@@ -37,7 +37,12 @@ namespace Data.Repository
 
         List<Parking> IRepository<Parking>.SelectAll()
         {
-            return base.SelectAll();
+            return _context.Parkings
+                        .Include(c => c.Country)
+                        .Include(u => u.User)
+                        .Include(s => s.Spots)
+                        .Where(x=> x.User.IsActive)
+                        .ToList();
         }
 
         void IRepository<Parking>.Update(Parking entity)

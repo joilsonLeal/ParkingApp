@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using AutoMapper;
 using Domain;
 using Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ParkingApp.Models;
 
 namespace ParkingApp.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IUserService _service;
-        public AccountController(IUserService service)
+        private readonly IMapper _mapper;
+        public AccountController(IUserService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         public IActionResult Login()
@@ -23,7 +26,7 @@ namespace ParkingApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(User model)
+        public IActionResult Login(UserModel model)
         {
             var user = _service.Login(model.Name, model.Password);
 
@@ -56,11 +59,18 @@ namespace ParkingApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignUp(User model)
+        public IActionResult SignUp(UserModel model)
         {
+            if(model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError("", "The two passwords do not match!");
+                return View();
+            }
+
             try
             {
-                _service.Post(model);
+                var user = _mapper.Map<User>(model);
+                _service.Post(user);
 
                 return RedirectToAction("Login");
             }
@@ -69,12 +79,6 @@ namespace ParkingApp.Controllers
                 ModelState.AddModelError("", "Erro ao salvar");
                 return View();
             }
-        }
-
-        [Authorize(Roles = "Admin")]
-        public IActionResult Secret()
-        {
-            return View();
         }
 
         public IActionResult Logout()

@@ -1,4 +1,4 @@
-﻿@model Domain.User
+﻿@model UserModel
 
 @{
     ViewData["Title"] = "Login";
@@ -12,23 +12,20 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
+                    <input asp-for="Name" type="text" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
+                    <input asp-for="Password" type="password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
                 <div class="form-group" style="text-align:center">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Login" class="btn btn-primary" />
                 </div>
             </form>
-            <div style="text-align:center;">
-                <a asp-action="Index">Back to List</a>
-            </div>
         </div>
     </div>
 

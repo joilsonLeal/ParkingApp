@@ -1,14 +1,9 @@
-﻿@model IEnumerable<Domain.Entities.Parking>
+﻿@model IEnumerable<ParkingModel>
 
 @{
     ViewData["Title"] = "Index1";
 }
 
-<h1>Index1</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -24,6 +19,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Spots)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -31,10 +29,10 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CountryId)
+                @Html.DisplayFor(modelItem => item.Country.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                @Html.DisplayFor(modelItem => item.User.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RegisteredDate)
@@ -43,7 +41,10 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", "Parking", new { id=item.Id })
+                @Html.DisplayFor(modelItem => item.Spots.Count)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Parking", new { id = item.Id })
             </td>
         </tr>
 }

@@ -32,7 +32,12 @@ namespace ParkingApp.Controllers
 
         public IActionResult Index()
         {
-            return View(_service.GetAll());
+            var result = _mapper
+                .Map<List<ParkingModel>>(
+                    _service.GetAll()
+                 );
+
+            return View(result);
         }
 
        
