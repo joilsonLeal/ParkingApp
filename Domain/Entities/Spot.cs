@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class Spot
+    public class Spot : BaseEntity
     {
         public int ParkingId { get; set; }
         public virtual Parking Parking { get; set; }

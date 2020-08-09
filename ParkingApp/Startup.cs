@@ -36,10 +36,14 @@ namespace ParkingApp
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<ISpotRepository, SpotRepository>();
+            services.AddScoped<IParkingRepository, ParkingRepository>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<ISpotService, SpotService>();
+            services.AddScoped<IParkingService, ParkingService>();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
