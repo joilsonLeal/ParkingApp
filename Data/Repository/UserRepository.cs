@@ -38,7 +38,7 @@ namespace Data.Repository
 
         List<User> IRepository<User>.SelectAll()
         {
-            return _context.Users.Include(p => p.Profile).Where(x => x.IsActive == true).ToList();
+            return _context.Users.Include(p => p.Profile).ToList();
         }
 
         void IRepository<User>.Update(User entity)
