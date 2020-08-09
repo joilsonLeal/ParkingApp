@@ -20,8 +20,8 @@ namespace ParkingApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUserService _service;
-        public HomeController(IUserService service)
+        private readonly ICountryService _service;
+        public HomeController(ICountryService service)
         {
             _service = service;
         }
@@ -30,12 +30,10 @@ namespace ParkingApp.Controllers
         {
             try
             {
-                var a = _service.GetAll1();
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
-                throw;
             }
             return View();
         }

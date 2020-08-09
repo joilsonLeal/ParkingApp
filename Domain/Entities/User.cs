@@ -8,7 +8,8 @@ namespace Domain
     {
         public string Password { get; set; }
         public bool IsActive { get; set; } = true;
-        public Domain.Entities.Profile Profile { get; set; }
+        public int ProfileId { get; set; }
+        public Profile Profile { get; set; }
 
     }
 }

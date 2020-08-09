@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Data.Repository
 {
-    public abstract class BaseRepository<T> : IRepository<T> where T : BaseEntity
+    public abstract class BaseRepository<T> where T : BaseEntity
     {
 
         protected readonly ParkingAppContext _context;
@@ -49,39 +49,5 @@ namespace Data.Repository
             _context.SaveChanges();
         }
 
-
-
-
-
-
-
-
-
-
-
-        void IRepository<T>.Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IRepository<T>.Insert(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        T IRepository<T>.Select(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        List<T> IRepository<T>.SelectAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IRepository<T>.Update(T entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

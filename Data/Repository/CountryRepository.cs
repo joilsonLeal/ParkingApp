@@ -1,47 +1,43 @@
 ﻿using Data.Context;
-using Domain;
+using Domain.Entities;
 using Domain.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class UserRepository : BaseRepository<User>, IUserRepository
+    public class CountryRepository : BaseRepository<Country>, ICountryRepository
     {
-        public UserRepository(ParkingAppContext context) : base(context)
+        public CountryRepository(ParkingAppContext context) : base(context)
         {
 
         }
 
-        public void Active(int id)
-        {
-            ActiveDesactive(id, true);
-        }
-
-        void IRepository<User>.Delete(int id)
+        void IRepository<Country>.Delete(int id)
         {
             ActiveDesactive(id, false);
         }
 
-        void IRepository<User>.Insert(User entity)
+        void IRepository<Country>.Insert(Country entity)
         {
             base.Insert(entity);
         }
 
-        User IRepository<User>.Select(int id)
+        Country IRepository<Country>.Select(int id)
         {
             return base.Select(id);
         }
 
-        List<User> IRepository<User>.SelectAll()
+        List<Country> IRepository<Country>.SelectAll()
         {
-            return _context.Users.Include(p => p.Profile).Where(x => x.IsActive == true).ToList();
+            return _context.Countries.Where(x => x.IsActive == true).ToList();
         }
 
-        void IRepository<User>.Update(User entity)
+        void IRepository<Country>.Update(Country entity)
         {
             base.Update(entity);
         }
@@ -51,6 +47,11 @@ namespace Data.Repository
             var entity = base.Select(id);
             entity.IsActive = status;
             base.Update(entity);
+        }
+
+        void ICountryRepository.Active(int id)
+        {
+            ActiveDesactive(id, true);
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Domain.Interfaces.Repository
 {
-    public interface IUserRepository : IRepository<User>
+    public interface ICountryRepository : IRepository<Country>
     {
         public void Active(int id);
     }

@@ -1,5 +1,4 @@
-﻿using Data.Context;
-using Domain;
+﻿using Domain.Entities;
 using Domain.Interfaces.Repository;
 using Domain.Interfaces.Services;
 using System;
@@ -8,10 +7,10 @@ using System.Text;
 
 namespace Service.Services
 {
-    public class  UserService : IUserService
+    public class CountryService : ICountryService
     {
-        private readonly IUserRepository _repository;
-        public UserService(IUserRepository repository)
+        private readonly ICountryRepository _repository;
+        public CountryService(ICountryRepository repository)
         {
             _repository = repository;
         }
@@ -21,22 +20,22 @@ namespace Service.Services
             _repository.Delete(id);
         }
 
-        public User Get(int id)
+        public Country Get(int id)
         {
             return _repository.Select(id);
         }
 
-        public IList<User> GetAll()
+        public IList<Country> GetAll()
         {
             return _repository.SelectAll();
         }
 
-        public void Post(User entity)
+        public void Post(Country entity)
         {
             _repository.Insert(entity);
         }
 
-        public void Put(User entity)
+        public void Put(Country entity)
         {
             _repository.Update(entity);
         }
@@ -45,6 +44,5 @@ namespace Service.Services
         {
             _repository.Active(id);
         }
-
     }
 }
