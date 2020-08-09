@@ -1,15 +1,13 @@
-﻿@model Domain.User
+﻿@model UserModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>User</h4>
-<hr />
-<div class="row">
+<div class="row" style="display: flex; justify-content:center; align-items:center;">
     <div class="col-md-4">
+        <h1 style="text-align:center;">Edit</h1>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group form-check">
@@ -18,9 +16,11 @@
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="ProfileId" class="control-label"></label>
-                <input asp-for="ProfileId" class="form-control" />
-                <span asp-validation-for="ProfileId" class="text-danger"></span>
+                <label asp-for="Profile" class="control-label"></label>
+                <select class="form-control" asp-for="ProfileId">
+                    <option value="1">Admin</option>
+                    <option value="2">User</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -33,16 +33,15 @@
             <div hidden class="form-group">
                 <input asp-for="Password" class="form-control" />
             </div>
-            <div class="form-group">
+            <div class="form-group" style="text-align:center;">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+        @Html.ActionLink("Back", "Index", new { }, new { @class = "btn btn-success btn-sm" })
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.User>
+﻿@model IEnumerable<UserModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,9 +6,6 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -38,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
             </td>
         </tr>
 }

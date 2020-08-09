@@ -30,8 +30,15 @@ namespace ParkingApp.Controllers
         {
             var user = _service.Login(model.Name, model.Password);
 
+
             if (user != null)
             {
+                if(!user.IsActive)
+                {
+                    ModelState.AddModelError("", "Your account is disabled, please contact us.");
+                    return View();
+                }
+
                 var claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Name, user.Name),

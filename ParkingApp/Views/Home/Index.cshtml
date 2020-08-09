@@ -44,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.Spots.Count)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", "Parking", new { id = item.Id })
+                @Html.ActionLink("Details", "Details", "Parking", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
             </td>
         </tr>
 }

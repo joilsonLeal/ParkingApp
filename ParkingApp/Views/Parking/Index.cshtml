@@ -1,37 +1,36 @@
-﻿@model IEnumerable<Domain.Entities.Parking>
+﻿@model IEnumerable<ParkingModel>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<button asp-action="Create" class="btn btn-primary btn-sm mt-1 mb-1">
+    Create new
+</button>
+    
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CountryId)
+                @Html.DisplayNameFor(model => model.Country)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                @Html.DisplayNameFor(model => model.User)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RegisteredDate)
+                Registered
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+            <th>Spots</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CountryId)
+                @Html.DisplayFor(modelItem => item.Country.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                @Html.DisplayFor(modelItem => item.User.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RegisteredDate)
@@ -40,12 +39,16 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.Spots.Count)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
+
+                @if (User.Identity.Name == item.User.Name)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class= "btn btn-warning btn-sm" })
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                }
             </td>
         </tr>
 }

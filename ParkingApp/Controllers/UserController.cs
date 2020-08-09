@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Domain;
 using Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ParkingApp.Models;
 
 namespace ParkingApp.Controllers
 {
@@ -13,26 +15,39 @@ namespace ParkingApp.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _service;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService service)
+        public UserController(IUserService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            return View(_service.GetAll());
+            var result = _mapper.Map<List<UserModel>>(_service.GetAll());
+            return View(result);
         }
 
         public ActionResult Edit(int id)
         {
-            return View(_service.Get(id));
+            var result = _mapper.Map<UserModel>(_service.Get(id));
+            return View(result);
         }
         [HttpPost]
-        public ActionResult Edit(User model)
+        public ActionResult Edit(UserModel model)
         {
-            _service.Put(model);
-            return RedirectToAction("Index");
+            try
+            {
+                var user = _mapper.Map<User>(model);
+                _service.Put(user);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "An error occurred while saving");
+                return View();
+            }
         }
     }
 }

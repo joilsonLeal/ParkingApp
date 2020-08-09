@@ -1,10 +1,8 @@
-﻿@model Domain.Entities.Parking
+﻿@model ParkingModel;
 
 @{
     ViewData["Title"] = "Create";
 }
-
-<h1>Create</h1>
 
 <h4>Parking</h4>
 <hr />
@@ -44,9 +42,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@Html.ActionLink("Back", "Index", new { }, new { @class = "btn btn-success btn-sm" })
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
