@@ -6,14 +6,17 @@ using Data.Context;
 using Data.Repository;
 using Domain.Interfaces.Repository;
 using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Service.Services;
+
 
 namespace ParkingApp
 {
@@ -28,6 +31,13 @@ namespace ParkingApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("CookieAuth")
+                .AddCookie("CookieAuth", config => 
+                {
+                    config.Cookie.Name = "Cookie";
+                    config.LoginPath = "/Account/Login";
+                });
+
             services.AddControllersWithViews();
 
             services.AddDbContext<ParkingAppContext>(options =>
@@ -44,6 +54,7 @@ namespace ParkingApp
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<ISpotService, SpotService>();
             services.AddScoped<IParkingService, ParkingService>();
+
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -57,13 +68,16 @@ namespace ParkingApp
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
 
+            app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

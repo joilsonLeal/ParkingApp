@@ -9,6 +9,7 @@ using Data.Repository;
 using Domain;
 using Domain.Entities;
 using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -26,30 +27,12 @@ namespace ParkingApp.Controllers
             _service = service;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Login(User model)
-        {
-            var user = _service.Login(model.Name, model.Password);
-            if (user != null)
-            {
-
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Invalid user/pass");
-                return View();
-            }
-        }
+       
     }
 }
