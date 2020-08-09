@@ -20,8 +20,8 @@ namespace ParkingApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProfileService _service;
-        public HomeController(IProfileService service)
+        private readonly ISpotService _service;
+        public HomeController(ISpotService service)
         {
             _service = service;
         }
@@ -30,9 +30,8 @@ namespace ParkingApp.Controllers
         {
             try
             {
-                
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
             }

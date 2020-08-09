@@ -9,7 +9,7 @@ namespace Data.Context.Mapping
     {
         public void Configure(EntityTypeBuilder<Spot> builder)
         {
-            builder.HasKey(t => new { t.ParkingId, t.Number });
+            builder.HasKey(t => t.Id);
 
             builder.Property(t => t.Number)
                 .IsRequired();
