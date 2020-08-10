@@ -48,6 +48,8 @@ namespace Data.Repository
         void IRepository<Parking>.Update(Parking entity)
         {
             base.Update(entity);
+            _context.Spots.UpdateRange(entity.Spots);
+            _context.SaveChanges();
         }
     }
 }

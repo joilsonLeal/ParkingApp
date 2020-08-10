@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParkingApp.Models;
 
@@ -13,11 +15,13 @@ namespace ParkingApp.Controllers
     {
         private readonly IParkingService _service;
         private readonly IMapper _mapper;
+        private readonly ICountryService _countryService;
 
-        public ParkingController(IParkingService service, IMapper mapper)
+        public ParkingController(IParkingService service, IMapper mapper, ICountryService countryService)
         {
             _service = service;
             _mapper = mapper;
+            _countryService = countryService;
         }
 
         public IActionResult Index()
@@ -32,20 +36,44 @@ namespace ParkingApp.Controllers
             return View(result);
         }
 
-        public IActionResult Edit(int id = 0)
+        [HttpGet]
+        public IActionResult Edit(int id = 0, string message = null)
         {
-            if(id > 0)
+            ParkingViewModel model = new ParkingViewModel();
+            model.Countries = _mapper.Map<List<CountryModel>>(_countryService.GetAll());
+
+            if(message != null)
             {
-                var result = _mapper.Map<ParkingModel>(_service.Get(id));
-                return View(result);
+                ModelState.AddModelError("", "An error occurred while saving");
             }
-            return View();
+
+            if (id > 0)
+            {
+                model.Parking = _mapper.Map<ParkingModel>(_service.Get(id));
+                return View(model);
+            }
+
+            model.Parking = new ParkingModel();
+            return View(model);
         }
 
-        [HttpDelete]
-        public IActionResult Delete(int id = 0)
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(ParkingViewModel model)
         {
-            return View("Index");
+            var parking = _mapper.Map<Parking>(model.Parking);
+
+            try
+            {
+                _service.Save(parking);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Edit", new { id = model.Parking.Id, message = "An error occurred while saving" });
+            }
+
         }
     }
 }

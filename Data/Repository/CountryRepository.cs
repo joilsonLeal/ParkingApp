@@ -34,7 +34,7 @@ namespace Data.Repository
 
         List<Country> IRepository<Country>.SelectAll()
         {
-            return _context.Countries.Where(x => x.IsActive == true).ToList();
+            return _context.Countries.Where(x => x.IsActive).ToList();
         }
 
         void IRepository<Country>.Update(Country entity)

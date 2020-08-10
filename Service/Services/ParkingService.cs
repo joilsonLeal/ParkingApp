@@ -10,9 +10,11 @@ namespace Service.Services
     public class ParkingService : IParkingService
     {
         private readonly IParkingRepository _repository;
-        public ParkingService(IParkingRepository repository)
+        private readonly ISpotRepository _spotRepository;
+        public ParkingService(IParkingRepository repository, ISpotRepository spotRepository)
         {
             _repository = repository;
+            _spotRepository = spotRepository;
         }
 
         public void Delete(int id)
@@ -38,6 +40,19 @@ namespace Service.Services
         public void Put(Parking entity)
         {
             _repository.Update(entity);
+        }
+
+        public void Save(Parking entity)
+        {
+            entity.RegisteredDate = DateTime.Now;
+            if(entity.Id > 0)
+            {
+                Put(entity);
+            }
+            else
+            {
+                Post(entity);
+            }
         }
     }
 }
