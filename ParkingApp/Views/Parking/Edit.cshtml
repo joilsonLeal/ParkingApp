@@ -4,38 +4,50 @@
     ViewData["Title"] = "Create";
 }
 
-<h4>Parking</h4>
+<h4 class="mt-2">Parking</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input hidden asp-for="Parking.Id"/>
-            <input hidden asp-for="Parking.UserId" />
-            <div class="form-group">
-                <label asp-for="Countries" class="control-label"></label>
-                <select class="form-control" asp-for="Parking.CountryId">
-                    @foreach (var item in Model.Countries)
-                    {
-                        <option value="@item.Id">@item.Name</option>
-                    }
-                </select>
-            </div>
+            @if (Model.Parking.Id == 0)
+            {
+                <div class="form-group">
+                    <label asp-for="Countries" class="control-label"></label>
+                    <select class="form-control" asp-for="Parking.CountryId">
+                        @foreach (var item in Model.Countries)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Parking.QuantitySpots" class="control-label"></label>
+                    <input asp-for="Parking.QuantitySpots" value="@Model.Parking.QuantitySpots" class="form-control" />
+                    <span asp-validation-for="Parking.QuantitySpots" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <input hidden asp-for="Parking.UserId" />
+                <input hidden asp-for="Parking.Id" />
+                <input hidden asp-for="Parking.CountryId" />
+            }
             <div class="form-group">
                 <label asp-for="Parking.Description" class="control-label"></label>
                 <input asp-for="Parking.Description" value="@Model.Parking.Description" class="form-control" />
                 <span asp-validation-for="Parking.Description" class="text-danger"></span>
             </div>
-            @if(Model.Parking.Id > 0)
-            { 
+            @if (Model.Parking.Id > 0)
+            {
                 @for (int i = 0; i < Model.Parking.Spots.Count; i++)
                 {
-                <div class="col-md-12">
-                    
-                    @Html.TextBoxFor(it => Model.Parking.Spots[i].Id, new { style = "display: none;" })
-                    @Html.TextBoxFor(it => Model.Parking.Spots[i].Number, new { style = "display: none;" })
-                    Spot @Model.Parking.Spots[i].Number - @Html.CheckBoxFor(it => Model.Parking.Spots[i].IsRented)
-                </div>
+                    <div class="col-md-12">
+
+                        @Html.TextBoxFor(it => Model.Parking.Spots[i].Id, new { style = "display: none;" })
+                        @Html.TextBoxFor(it => Model.Parking.Spots[i].Number, new { style = "display: none;" })
+                        Spot @Model.Parking.Spots[i].Number - @Html.CheckBoxFor(it => Model.Parking.Spots[i].IsRented)
+                    </div>
                 }
             }
             <div class="form-group">

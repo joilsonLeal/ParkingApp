@@ -24,6 +24,12 @@ namespace Data.Repository
         void IRepository<Parking>.Insert(Parking entity)
         {
             base.Insert(entity);
+            var id = entity.Id;
+
+            foreach (var spot in entity.Spots)
+                spot.ParkingId = id;
+            
+            _context.Spots.AddRange(entity.Spots);
         }
 
         Parking IRepository<Parking>.Select(int id)

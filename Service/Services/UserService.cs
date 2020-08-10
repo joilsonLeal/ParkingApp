@@ -51,5 +51,9 @@ namespace Service.Services
             _repository.Active(id);
         }
 
+        public User GetByName(string username)
+        {
+            return _repository.GetByName(username);
+        }
     }
 }

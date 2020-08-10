@@ -60,5 +60,10 @@ namespace Data.Repository
                     .Where(x => x.Name == username && x.Password == password)
                     .FirstOrDefault();
         }
+
+        public User GetByName(string username)
+        {
+            return _context.Users.Where(x => x.Name == username).FirstOrDefault();
+        }
     }
 }

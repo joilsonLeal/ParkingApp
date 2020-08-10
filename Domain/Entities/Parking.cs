@@ -11,9 +11,7 @@ namespace Domain.Entities
         public virtual Country Country { get; set; }
         public int UserId { get; set; }
         public virtual User User { get; set; }
-
         public DateTime RegisteredDate { get; set; }
-        //public List<string> Pictures { get; set; }
         public string Description { get; set; }
         public List<Spot> Spots { get; set; }
     }

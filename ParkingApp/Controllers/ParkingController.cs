@@ -66,10 +66,13 @@ namespace ParkingApp.Controllers
 
             try
             {
-                _service.Save(parking);
+                if (parking.Id == 0)
+                    _service.Save(parking, model.Parking.QuantitySpots, User.Identity.Name);
+                else
+                    _service.Put(parking);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return RedirectToAction("Edit", new { id = model.Parking.Id, message = "An error occurred while saving" });
             }
