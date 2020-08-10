@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ParkingModel>
 
 @{
-    ViewData["Title"] = "Index1";
+    ViewData["Title"] = "Home";
 }
 
 <table class="table">
@@ -14,7 +14,7 @@
                 @Html.DisplayNameFor(model => model.User)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RegisteredDate)
+                Updated
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
@@ -41,7 +41,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Spots.Count)
+                @Html.DisplayFor(modelItem => item.Spot)
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", "Parking", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })

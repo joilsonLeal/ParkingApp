@@ -7,5 +7,6 @@ namespace Domain.Interfaces.Services
 {
     public interface IParkingService : IService<Parking>
     {
+        public void Save(Parking entity, int quantitySpots, string user);
     }
 }

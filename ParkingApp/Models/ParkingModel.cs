@@ -14,5 +14,10 @@ namespace ParkingApp.Models
         public DateTime RegisteredDate { get; set; }
         public string Description { get; set; }
         public List<SpotModel> Spots { get; set; }
+        public int QuantitySpots { get; set; }
+        public string Spot
+        {
+            get => $"{Spots.Where(x => !x.IsRented).Count()}/{Spots.Count}";
+        }
     }
 }

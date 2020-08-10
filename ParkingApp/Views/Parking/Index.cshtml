@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<ParkingModel>
 
-<button asp-action="Create" class="btn btn-primary btn-sm mt-1 mb-1">
-    Create new
-</button>
-    
+@Html.ActionLink("Create new", "Edit", new { }, new { @class = "btn btn-primary btn-sm mt-2" })
+
 <table class="table">
     <thead>
         <tr>
@@ -14,7 +12,7 @@
                 @Html.DisplayNameFor(model => model.User)
             </th>
             <th>
-                Registered
+                Updated
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
@@ -24,33 +22,34 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RegisteredDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Spots.Count)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegisteredDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Spot)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
 
-                @if (User.Identity.Name == item.User.Name)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class= "btn btn-warning btn-sm" })
-                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                }
-            </td>
-        </tr>
-}
+                    @if (User.Identity.Name == item.User.Name)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

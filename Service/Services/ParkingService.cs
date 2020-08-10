@@ -10,9 +10,11 @@ namespace Service.Services
     public class ParkingService : IParkingService
     {
         private readonly IParkingRepository _repository;
-        public ParkingService(IParkingRepository repository)
+        private readonly IUserRepository _userRepository;
+        public ParkingService(IParkingRepository repository, IUserRepository userRepository)
         {
             _repository = repository;
+            _userRepository = userRepository;
         }
 
         public void Delete(int id)
@@ -37,7 +39,27 @@ namespace Service.Services
 
         public void Put(Parking entity)
         {
+            entity.RegisteredDate = DateTime.Now;
             _repository.Update(entity);
+        }
+
+        public void Save(Parking entity, int quantitySpots, string username)
+        {
+            if (quantitySpots <= 0)
+                throw new ArgumentException();
+            entity.RegisteredDate = DateTime.Now;
+            entity.Spots = new List<Spot>();
+
+            for (int i = 0; i < quantitySpots; i++)
+                entity.Spots.Add(new Spot()
+                {
+                    IsRented = false,
+                    Number = i + 1,
+                });
+
+            entity.UserId = _userRepository.GetByName(username).Id;
+
+            Post(entity);
         }
     }
 }
