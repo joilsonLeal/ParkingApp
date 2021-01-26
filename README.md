@@ -30,7 +30,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina a seguinte f
 $ git clone https://github.com/joilsonLeal/ParkingApp
 
 # Acesse a pasta do projeto no seu vscode
-$ cd lyrify
+$ cd ParkingApp
 
 # Execute a aplicação abrindo o arquivo ParkingApp.sln
 
